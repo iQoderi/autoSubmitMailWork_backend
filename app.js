@@ -3,6 +3,7 @@ const koa = require('koa');
 const route = require('koa-route');
 const mongoose=require('mongoose');
 const errorHandleMiddle=require('./util/error');
+const config=require('./config/env');
 const app = koa();
 
 const host='123.206.16.40';
@@ -31,8 +32,8 @@ app.on('error',(err,ctx)=>{
 
 
 if (!module.parent) {
-  app.listen(3000);
-  console.log('listening on port 3000');
+  app.listen(config.port);
+  console.log(`listening on port ${config.port}`);
 }
 
 module.exports = app;

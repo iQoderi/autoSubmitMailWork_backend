@@ -5,7 +5,11 @@
 
 const mongoose=require('mongoose');
 const uuid=require('uuid');
+const jwt=require('koa-jwt');
+const config=require('../../config/env');
 const UserModel=require('../../models/user.model');
+const md5=require('md5');
+const tokenCreator=require('../../util/token');
 const User=mongoose.model('User');
 
 exports.register=function *() {
@@ -17,15 +21,22 @@ exports.register=function *() {
         code:10004
       };
     }else{
+      let id=uuid.v4();
+      let expiresIn=1000*60*60*24*7;   //7天过期
       const condition={
-        id:uuid.v4(),
+        id:id,
         username:body.username,
-        password:body.password
+        password:(md5(config.salt+body.password)),
+        token:tokenCreator(id,expiresIn)
       };
-      const newUser=new User(condition);
-      const savedUser=yield newUser.save();
-      console.log(savedUser);
-      this.body=savedUser;
+      const newUser=new User(condition,{_id:0});
+      yield newUser.save();
+      this.body={
+        code:0,
+        data:{
+          token:tokenCreator(id,expiresIn)
+        }
+      }
     }
   }else{
     this.body={
@@ -42,14 +53,16 @@ exports.login=function *() {
   if(body.username&&body.password){
     const condition={
       username:body.username,
-      password:body.password
+      password:md5(config.salt+body.password)
     };
-    const user=yield User.findOne(condition);
+    const user=yield User.findOne(condition,{_id:0});
     if(user){
+      let id=user.id;
+      let expiresIn=1000*60*60*24*7;   //7天过期
       this.body={
         code:0,
         data:{
-          user:user
+          token:tokenCreator(id,expiresIn)
         }
       }
     }else{
