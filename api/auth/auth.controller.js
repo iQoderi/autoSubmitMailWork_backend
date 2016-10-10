@@ -12,6 +12,10 @@ const md5=require('md5');
 const tokenCreator=require('../../util/token');
 const User=mongoose.model('User');
 
+
+/**
+ * 注册
+ */
 exports.register=function *() {
   const body=this.request.body;
   if(body.username&&body.password){
@@ -46,7 +50,7 @@ exports.register=function *() {
 };
 
 /**
- * user login
+ * 登录
  */
 exports.login=function *() {
   const body=this.request.body;

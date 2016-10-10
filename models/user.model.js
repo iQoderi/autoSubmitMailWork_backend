@@ -20,7 +20,7 @@ let UserSchema=new Schema({
     type:String
   },
   token:{
-    createAt:Date,
+    createAt:String,
     token:String,
     expiresIn:String
   }
