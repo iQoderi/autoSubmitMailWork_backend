@@ -6,10 +6,11 @@ const errorHandleMiddle=require('./util/error');
 const app = koa();
 
 const host='123.206.16.40';
-mongoose.connect(`mongodb://${host}:27017/autoSubmitMailWork`);
+const db=mongoose.connect(`mongodb://${host}:27017/autoSubmitMailWork`);
 
 //mongodb promise style
 mongoose.Promise=require('bluebird');
+
 
 
 //error handle middleware
@@ -26,7 +27,7 @@ app.on('error',(err,ctx)=>{
   if (process.env.NODE_ENV != 'test') {
     console.error('error', err);
   }
-})
+});
 
 
 if (!module.parent) {

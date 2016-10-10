@@ -12,4 +12,5 @@ let UserSchema=new Schema({
   password:String
 });
 
+
 module.exports=mongoose.model('User',UserSchema);
