@@ -7,16 +7,36 @@ const mongoose=require('mongoose');
 const UserModel=require('../../models/user.model');
 const User=mongoose.model('User');
 
-exports.login=function *() {
-  console.log(this.request.body);
+exports.register=function *() {
   const body=this.request.body;
-  if(body.password&&body.username){
+  if(body.username&&body.password){
+    const condition={
+    }
+  }else{
+
+  }
+};
+/**
+ * user login
+ */
+exports.login=function *() {
+  const body=this.request.body;
+  if(body.username&&body.password){
     const condition={
       username:body.username,
       password:body.password
     };
     const user=yield User.findOne(condition);
-    this.body=user;
+    if(user){
+      this.body={
+        code:0,
+        data:{
+          user:user
+        }
+      }
+    }else{
+      this.throw({code:10002});
+    }
   }else{
     this.body={
       code:10001
