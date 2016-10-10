@@ -6,6 +6,7 @@
 const mongoose=require('mongoose');
 
 exports.login=function *() {
+  console.log(this.request);
   this.body={
     test:'success'
   }

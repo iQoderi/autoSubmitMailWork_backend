@@ -6,6 +6,6 @@
 const router=require('koa-router')();
 const controller=require('./auth.controller');
 
-router.get('/login',controller.login);
+router.post('/login',controller.login);
 
 module.exports=router;
