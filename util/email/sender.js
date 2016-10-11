@@ -5,19 +5,22 @@
 
 const transporter = require('./transporter');
 
-function emailSender(data, auth, cxt, host = 'smtp.163.com', port = 465) {
+function emailSender(auth, data, host, port) {
+  let flag=true;
+  host = host || 'smtp.163.com';
+  port = port || 465;
   let myTransporter = transporter(auth, host, port);
   myTransporter.sendMail(data, (err, info)=> {
     if (err) {
-      cxt.body = {code:10009};
+      flag=false;
     } else {
       if (info) {
-        cxt.body = {
-          code: 0
-        }
+        flag=true;
       }
     }
   });
+  myTransporter.close();
+  return flag;
 }
 
 

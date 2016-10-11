@@ -11,6 +11,10 @@ const emailSchema = new Schema({
     type: String,
     required: true
   },
+  stuCode: {
+    type: String,
+    required: true
+  },
   belongTo: {     //属于某个用户,
     type: String,
     required: true
