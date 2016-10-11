@@ -3,34 +3,34 @@
  */
 'use strict';
 
-const mongoose=require('mongoose');
-const Schema=mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-let workSchema=new Schema({
-  userId:{
-    type:String,
-    required:true
+let workSchema = new Schema({
+  accountId: {
+    type: String,
+    required: true
   },
-  belongTo:{
-    type:String,
-    required:true
+  belongTo: {
+    type: String,
+    required: true
   },
-  sendTo:{
-    type:String,
-    required:true
+  sendTo: {
+    type: String,
+    required: true
   },
-  title:{
-    type:String,
-    required:true
+  title: {
+    type: String,
+    required: true
   },
-  content:{
-    type:String,
-    required:true
+  content: {
+    type: String,
+    required: true
   },
-  createAt:{
-    type:Date,
-    required:true
+  createAt: {
+    type: Date,
+    required: true
   }
 });
 
-module.exports=mongoose.model('Work',workSchema);
+module.exports = mongoose.model('Work', workSchema);
