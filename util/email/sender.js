@@ -6,8 +6,10 @@
 const transporter = require('./transporter');
 
 function emailSender(auth, data, host, port) {
+  console.log(auth);
+  console.log(data);
   let flag=true;
-  host = host || 'smtp.163.com';
+  host = host || 'smtp.qq.com';
   port = port || 465;
   let myTransporter = transporter(auth, host, port);
   myTransporter.sendMail(data, (err, info)=> {

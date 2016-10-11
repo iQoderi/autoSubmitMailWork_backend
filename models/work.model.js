@@ -11,11 +11,20 @@ let workSchema = new Schema({
     type: String,
     required: true
   },
+  mailId: String,
   belongTo: {
     type: String,
     required: true
   },
   sendTo: {
+    type: String,
+    required: true
+  },
+  lesson: {
+    type: String,
+    required: true
+  },
+  times: {
     type: String,
     required: true
   },
@@ -28,7 +37,7 @@ let workSchema = new Schema({
     required: true
   },
   createAt: {
-    type: Date,
+    type: String,
     required: true
   }
 });

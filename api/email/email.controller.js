@@ -18,7 +18,7 @@ exports.getEmail = function *() {
     accountId: this.user.id
   };
 
-  const email = yield Email.find(condition, {_id: 0, id: 1, belongTo: 1, email: 1, accountId: 1});
+  const email = yield Email.find(condition, {_id: 0, id: 1, belongTo: 1, email: 1, accountId: 1,stuCode:1});
   this.body = {
     code: 0,
     data: {
@@ -37,7 +37,8 @@ exports.addEmail = function *() {
     accountId: this.user.id,
     belongTo: body.name,
     email: body.email,
-    pass: body.pass
+    pass: body.pass,
+    stuCode: body.stuCode
   };
 
   if (checkData(condition)) {
@@ -68,7 +69,8 @@ exports.modifyEmail = function *() {
   const update = {
     email: body.email,
     belongTo: body.name,
-    pass: body.pass
+    pass: body.pass,
+    stuCode: body.stuCode
   };
   if (checkData(update)) {
     let condition = {
