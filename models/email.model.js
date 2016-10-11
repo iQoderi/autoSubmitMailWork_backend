@@ -3,17 +3,21 @@
  */
 'use strict';
 
-const mongoose=require('mongoose');
-const Schema=mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const emailSchema=new Schema({
-  belongTo:String,    //属于某个用户
-  accountId:String,       //属于那个账户
-  email:{
-    type:String,
-    lowercase:true
+const emailSchema = new Schema({
+  id: {
+    type: String,
+    required: true
+  },       //email Id
+  belongTo: String,    //属于某个用户
+  email: {
+    type: String,
+    lowercase: true,
+    required: true
   },
-  pass:String
+  pass: String
 });
 
-module.exports=mongoose.model('Email',emailSchema);
+module.exports = mongoose.model('Email', emailSchema);
