@@ -15,10 +15,10 @@ const Email = mongoose.model('Email');
  */
 exports.getEmail = function *() {
   const condition = {
-    id: this.user.id
+    accountId: this.user.id
   };
 
-  const email = yield Email.find(condition);
+  const email = yield Email.find(condition,{_id:0,id:1,belongTo:1,email:1,accountId:1});
   this.body = {
     code: 0,
     data: {
@@ -34,11 +34,11 @@ exports.addEmail = function *() {
   const body = this.request.body;
   const condition = {
     id: uuid.v4(),
+    accountId:this.user.id,
     belongTo: body.name,
     email: body.email,
     pass: body.pass
   };
-
   if (checkData(condition)) {
     const newEmail = new Email(condition);
     yield newEmail.save();

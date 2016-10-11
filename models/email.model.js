@@ -10,8 +10,15 @@ const emailSchema = new Schema({
   id: {
     type: String,
     required: true
-  },       //email Id
-  belongTo: String,    //属于某个用户
+  },
+  belongTo: {     //属于某个用户,
+    type: String,
+    required: true
+  },
+  accountId: {
+    type: String,
+    required: true
+  },
   email: {
     type: String,
     lowercase: true,

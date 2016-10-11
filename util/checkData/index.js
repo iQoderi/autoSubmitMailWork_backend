@@ -5,8 +5,8 @@
 
 function checkData(obj) {
   if (typeof obj === 'object') {
-    for (let item in value) {
-      if (!value[item]) {
+    for (let item in obj) {
+      if (!obj[item]) {
         return false;
       }
     }
