@@ -18,7 +18,7 @@ exports.getEmail = function *() {
     accountId: this.user.id
   };
 
-  const email = yield Email.find(condition,{_id:0,id:1,belongTo:1,email:1,accountId:1});
+  const email = yield Email.find(condition, {_id: 0, id: 1, belongTo: 1, email: 1, accountId: 1});
   this.body = {
     code: 0,
     data: {
@@ -34,21 +34,28 @@ exports.addEmail = function *() {
   const body = this.request.body;
   const condition = {
     id: uuid.v4(),
-    accountId:this.user.id,
+    accountId: this.user.id,
     belongTo: body.name,
     email: body.email,
     pass: body.pass
   };
+
   if (checkData(condition)) {
-    const newEmail = new Email(condition);
-    yield newEmail.save();
-    this.body = {
-      code: 0
+    const email = yield Email.findOne({email: body.email});
+    if (email) {
+      this.body = {
+        code: 10007
+      }
+    } else {
+      const newEmail = new Email(condition);
+      yield newEmail.save();
+      this.body = {
+        code: 0
+      }
     }
   } else {
     this.body = {
       code: 10001
-
     }
   }
 };
@@ -58,16 +65,25 @@ exports.addEmail = function *() {
  */
 exports.modifyEmail = function *() {
   const body = this.request.body;
-  if (checkData(body)) {
+  const update = {
+    email: body.email,
+    belongTo: body.name,
+    pass: body.pass
+  };
+  if (checkData(update)) {
     let condition = {
-      id:this.params.id
+      id: this.params.id
     };
-    let update=body;
-    const email=yield Email.update(condition.update)
-    console.log(email);
-    this.body={
-      code:0
-    };
+    const email = yield Email.update(condition, update);
+    if (email.n === 1) {
+      this.body = {
+        code: 0
+      };
+    } else {
+      this.body = {
+        code: 10008
+      };
+    }
   } else {
     this.body = {
       code: 10001
@@ -78,11 +94,17 @@ exports.modifyEmail = function *() {
 /**
  * 删除邮箱
  */
-exports.deleteEmail=function *() {
-  const condition={id:this.params.id};
-  const email=yield Email.remove(condition);
-  this.body={
-    code:0
+exports.deleteEmail = function *() {
+  const condition = {id: this.params.id};
+  const email = yield Email.remove(condition);
+  if (email.result.n === 1) {
+    this.body = {
+      code: 0
+    }
+  } else {
+    this.body = {
+      code: 10008
+    }
   }
 };
 
