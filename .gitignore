@@ -1,0 +1,6 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/autoSubmitMailWork_backend.iml
+.idea/modules.xml
+.idea/workspace.xml
+
+node_modules
