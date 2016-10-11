@@ -26,3 +26,22 @@ exports.addEmail=function *() {
     code:0
   }
 };
+
+
+/**
+ * 获取邮箱
+ */
+exports.getEmail=function *() {
+  const condition={
+    id:this.user.id
+  };
+
+  const email=yield Email.find(condition);
+  this.body={
+    code:0,
+    data:{
+      email:email
+    }
+  }
+};
+
