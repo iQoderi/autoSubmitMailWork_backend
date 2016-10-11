@@ -65,3 +65,21 @@ exports.addWork = function *() {
     this.body = {code: 10001}
   }
 };
+
+/**
+ * 获取作业列表
+ * email
+ * times
+ * belongTo
+ */
+exports.getWork = function *() {
+  const condition = this.query;
+  condition.accountId = this.user.id;
+  const works = yield Work.find(condition);
+  this.body = {
+    code: 0,
+    data: {
+      works: works
+    }
+  }
+};

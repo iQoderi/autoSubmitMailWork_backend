@@ -6,6 +6,7 @@ const controller = require('./work.controller');
 const checkToken = require('../../util/token/checkToken');
 
 router.use(checkToken);
+router.get('/', controller.getWork);
 router.post('/', controller.addWork);
 
 module.exports = router;

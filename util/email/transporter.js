@@ -6,7 +6,7 @@
 const nodeEmailer = require('nodemailer');
 
 function transporterMaker(auth, host, port) {
-  host = host || 'smtp.163.com';
+  host = host || 'smtp.qq.com';
   port = port || 465;
   //开启一个SMTP连接池
   const transporter = nodeEmailer.createTransport("SMTP", {
@@ -15,7 +15,6 @@ function transporterMaker(auth, host, port) {
     port: port,    //SMTP端口
     auth: auth
   });
-
   return transporter;
 }
 

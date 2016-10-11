@@ -6,8 +6,6 @@
 const transporter = require('./transporter');
 
 function emailSender(auth, data, host, port) {
-  console.log(auth);
-  console.log(data);
   let flag=true;
   host = host || 'smtp.qq.com';
   port = port || 465;
