@@ -8,8 +8,10 @@ const auth = require('./api/auth');
 const user = require('./api/user');
 const email = require('./api/email');
 const work = require('./api/work');
+const apiDoc=require('./api/apiDoc');
 
 module.exports = function (app) {
+  Router.use('/', apiDoc.routes(), auth.allowedMethods());
   Router.use('/auth', auth.routes(), auth.allowedMethods());
   Router.use('/user', user.routes(), auth.allowedMethods());
   Router.use('/email', email.routes(), auth.allowedMethods());
